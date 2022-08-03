@@ -1,8 +1,8 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Mongo.Services.ProductAPI;
-using Mongo.Services.ProductAPI.DbContexts;
-using Mongo.Services.ProductAPI.Repository;
+using Mango.Services.ProductAPI;
+using Mango.Services.ProductAPI.DbContexts;
+using Mango.Services.ProductAPI.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,6 @@
-﻿using Mongo.Services.ProductAPI.Models;
+﻿using Mango.Services.ProductAPI.Models;
 
-namespace Mongo.Services.ProductAPI.Repository
+namespace Mango.Services.ProductAPI.Repository
 {
     public interface IProductRepository
     {

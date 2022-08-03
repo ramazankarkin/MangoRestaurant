@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Mongo.Services.ProductAPI.DbContexts;
-using Mongo.Services.ProductAPI.Models;
-using Mongo.Services.ProductAPI.Models.DTO;
+using Mango.Services.ProductAPI.DbContexts;
+using Mango.Services.ProductAPI.Models;
+using Mango.Services.ProductAPI.Models.DTO;
 
-namespace Mongo.Services.ProductAPI.Repository
+namespace Mango.Services.ProductAPI.Repository
 {
     public class ProductRepository : IProductRepository
     {

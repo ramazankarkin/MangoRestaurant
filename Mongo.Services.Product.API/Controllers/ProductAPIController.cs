@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Mongo.Services.ProductAPI.Models.DTO;
-using Mongo.Services.ProductAPI.Repository;
+using Mango.Services.ProductAPI.Models.DTO;
+using Mango.Services.ProductAPI.Repository;
 
-namespace Mongo.Services.ProductAPI.Controllers
+namespace Mango.Services.ProductAPI.Controllers
 {
     [Route("api/products")]
     public class ProductAPIController : ControllerBase

@@ -1,4 +1,4 @@
-﻿namespace Mongo.Services.ProductAPI.Models
+﻿namespace Mango.Services.ProductAPI.Models
 {
     public class ProductDTO
     {

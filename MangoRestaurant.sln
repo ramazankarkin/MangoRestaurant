@@ -5,11 +5,11 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{B2CB6854-FC5B-434B-81E1-4A7FE74934C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.WEB", "Mango.WEB\Mango.WEB.csproj", "{CCF3D65F-CC35-4509-8026-664B45B03E72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.WEB", "Mango.WEB\Mango.WEB.csproj", "{CCF3D65F-CC35-4509-8026-664B45B03E72}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4CF36AD5-410B-43C3-A9D0-C3E4B8867C45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mongo.Services.ProductAPI", "Mongo.Services.Product.API\Mongo.Services.ProductAPI.csproj", "{0A229199-4195-42A5-8491-562B7D83775A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Services.ProductAPI", "Mongo.Services.Product.API\Mango.Services.ProductAPI.csproj", "{0A229199-4195-42A5-8491-562B7D83775A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

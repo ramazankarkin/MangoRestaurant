@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Mongo.Services.ProductAPI.Models;
-using Mongo.Services.ProductAPI.Models.DTO;
+using Mango.Services.ProductAPI.Models;
+using Mango.Services.ProductAPI.Models.DTO;
 
-namespace Mongo.Services.ProductAPI
+namespace Mango.Services.ProductAPI
 {
     public class MappingConfig
     {

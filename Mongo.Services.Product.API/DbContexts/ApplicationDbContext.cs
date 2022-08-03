@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Mongo.Services.ProductAPI.Models.DTO;
+using Mango.Services.ProductAPI.Models.DTO;
 
-namespace Mongo.Services.ProductAPI.DbContexts
+namespace Mango.Services.ProductAPI.DbContexts
 {
     public class ApplicationDbContext:DbContext // Entity Framework'u kullanabilmek icin implement ettik.
 

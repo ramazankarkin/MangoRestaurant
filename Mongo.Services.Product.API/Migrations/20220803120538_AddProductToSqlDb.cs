@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Mongo.Services.ProductAPI.Migrations
+namespace Mango.Services.ProductAPI.Migrations
 {
     public partial class AddProductToSqlDb : Migration
     {
