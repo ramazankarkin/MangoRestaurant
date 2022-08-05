@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Mango.Services.ProductAPI.Models.DTO;
+using Mango.Services.ProductAPI.Models;
 
 namespace Mango.Services.ProductAPI.DbContexts
 {
