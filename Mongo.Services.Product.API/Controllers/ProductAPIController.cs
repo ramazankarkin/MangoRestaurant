@@ -55,5 +55,59 @@ namespace Mango.Services.ProductAPI.Controllers
             }
             return _response;
         }
+
+        [HttpPost]
+       
+        public async Task<Object/* ResponseDTO*/> Post([FromBody] ProductDTO productDTO) // burda Task içine yazdığımız şey bizim dönüş tipimizi belirtiyor.
+        {
+            try
+            {
+                ProductDTO model = await _productRepository.CreateUpdateProduct(productDTO);
+                _response.Result = model;
+            }
+            catch (Exception ex)
+            {
+
+                _response.IsSUCCESS = false;
+                _response.ErrorMessages = new List<string> { ex.ToString() }; // Error mesajını log'luyoruz.
+            }
+            return _response;
+        }
+
+        [HttpPut]
+
+        public async Task<Object/* ResponseDTO*/> Put([FromBody] ProductDTO productDTO) // burda Task içine yazdığımız şey bizim dönüş tipimizi belirtiyor.
+        {
+            try
+            {
+                ProductDTO model = await _productRepository.CreateUpdateProduct(productDTO);
+                _response.Result = model;
+            }
+            catch (Exception ex)
+            {
+
+                _response.IsSUCCESS = false;
+                _response.ErrorMessages = new List<string> { ex.ToString() }; // Error mesajını log'luyoruz.
+            }
+            return _response;
+        }
+
+        [HttpDelete]
+
+        public async Task<Object/* ResponseDTO*/> Delete(int id) // burda Task içine yazdığımız şey bizim dönüş tipimizi belirtiyor.
+        {
+            try
+            {
+                bool isSuccess = await _productRepository.DeleteProduct(id);
+                _response.Result = isSuccess;
+            }
+            catch (Exception ex) 
+            {
+
+                _response.IsSUCCESS = false;
+                _response.ErrorMessages = new List<string> { ex.ToString() }; // Error mesajını log'luyoruz.
+            }
+            return _response;
+        }
     }
 }
