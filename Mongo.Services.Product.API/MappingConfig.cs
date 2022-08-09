@@ -6,7 +6,7 @@ namespace Mango.Services.ProductAPI
 {
     public class MappingConfig
     {
-        public static MapperConfiguration RegisterMaps()
+        public static MapperConfiguration RegisterMaps() // static olduğu için direkt olarak Program.cs'den çalıştırabiliriz.
         {
             var mappingConfig = new MapperConfiguration(config =>
             {

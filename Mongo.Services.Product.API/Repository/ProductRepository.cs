@@ -9,9 +9,9 @@ namespace Mango.Services.ProductAPI.Repository
     public class ProductRepository : IProductRepository
     {
         private readonly ApplicationDbContext _db; //
-        private IMapper _mapper;
+        private IMapper _mapper; // ProductDto'yu product'a çevirmek için gerekli.
 
-        public ProductRepository(ApplicationDbContext db, IMapper mapper)
+        public ProductRepository(ApplicationDbContext db, IMapper mapper) // Dependency injection'a örnek.
         {
             _db = db;
             _mapper = mapper;
@@ -37,7 +37,7 @@ namespace Mango.Services.ProductAPI.Repository
             try
             {
                 Product product = await _db.Products.FirstOrDefaultAsync(u => u.ProductId == productId);
-                if(product == null)
+                if(product == null) // Eğer yukardaki id'ye uygun bir product yoksa null kontrolü yapıyoruz.
                 {
                     return false;
                 }
@@ -54,16 +54,17 @@ namespace Mango.Services.ProductAPI.Repository
 
         public async Task<ProductDTO> GetProductById(int productId)
         {
-            Product product = await _db.Products.Where(x => x.ProductId == productId).FirstOrDefaultAsync();
+            Product product = await _db.Products.Where(x => x.ProductId == productId).FirstOrDefaultAsync(); // id için sadece bir ürün olduğu için FirstOrDefault dedik.
 
             return _mapper.Map<ProductDTO>(product);
         }
 
         public async Task<IEnumerable<ProductDTO>> GetProducts()
         {
-            IEnumerable<Product> productList = await _db.Products.ToListAsync();
+            IEnumerable<Product> productList = await _db.Products.ToListAsync(); // Database'den tüm productları liste şeklinde alıyoruz.
 
-            return _mapper.Map <List<ProductDTO >>(productList);
+            return _mapper.Map <List<ProductDTO >>(productList); // Product to PrdoctDTO dönüştürüp return ediyoruz.
         }
     }
 }
+ 
