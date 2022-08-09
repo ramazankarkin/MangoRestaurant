@@ -19,8 +19,8 @@ namespace Mango.Services.ProductAPI.Repository
 
         public async Task<ProductDTO> CreateUpdateProduct(ProductDTO productDTO)
         {
-            Product product = _mapper.Map<ProductDTO, Product>(productDTO);
-            if(product.ProductId > 0)
+            Product product = _mapper.Map<ProductDTO, Product>(productDTO); // ProductDTO yu product'a dönüştürüp product'a atıyoruz.
+            if(product.ProductId > 0) // update veya create olduğunu anlamak için koyduk.
             {
                 _db.Products.Update(product);
             }
@@ -29,7 +29,7 @@ namespace Mango.Services.ProductAPI.Repository
                 _db.Products.Add(product);
             }
             await _db.SaveChangesAsync();
-            return _mapper.Map<Product, ProductDTO > (product);
+            return _mapper.Map<Product, ProductDTO > (product); // Tekrar Product'u ProductDTO'ya dönüştürüyoruz.
         }
 
         public async Task<bool> DeleteProduct(int productId)
