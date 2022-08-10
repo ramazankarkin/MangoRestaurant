@@ -1,5 +1,4 @@
 ﻿using Mango.WEB.Models;
-using Mango.WEB.Models.DTO;
 using Mango.WEB.Services.IServices;
 using Newtonsoft.Json;
 using System.Text;
@@ -35,8 +34,8 @@ namespace Mango.WEB.Services
                 client.DefaultRequestHeaders.Clear();
                 if(apiRequest.Data != null)
                 {
-                    httpRequestMessage.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data), Encoding.UTF8, "application/json")
-                }
+                    httpRequestMessage.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data), Encoding.UTF8, "application/json");
+                };
                 HttpResponseMessage apiResponse = null;
                 switch (apiRequest.APIType)
                 {

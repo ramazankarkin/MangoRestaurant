@@ -1,4 +1,4 @@
-﻿namespace Mango.WEB.Models.DTO
+﻿namespace Mango.WEB.Models
 {
     public class ProductDTO // bu DTO(data transfer object) class database'ye veri ekleme çıkarma işlemi yapmak için kullanılmıyor.
                             // DTO'lar içlerinde business kod bulundurmazlar görevleri sadece verileri taşımak ve geçiçi olarak saklamaktır.
