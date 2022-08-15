@@ -10,6 +10,23 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient<IProductService, ProductService>();
 SD.ProductAPIBase = builder.Configuration["ServiceURLs:ProductAPI"];
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = "Cookies";
+    options.DefaultChallengeScheme = "oidc";
+
+}).AddCookie("Cookies", c => c.ExpireTimeSpan = TimeSpan.FromMinutes(10)).AddOpenIdConnect("oidc", options =>
+{ // eklediðimiz tüm optionlar openID connection içindi bu eklediðimiz verileri SD klasýndan aldýk.
+    options.Authority = builder.Configuration["ServiceURLs:IdentityAPI"];
+    options.GetClaimsFromUserInfoEndpoint = true;
+    options.ClientId = "mango";
+    options.ClientSecret = "secret"; // normal þartlarda random guid olmasý lazým
+    options.ResponseType = "code";
+    options.TokenValidationParameters.NameClaimType = "name";
+    options.TokenValidationParameters.RoleClaimType = "role";
+    options.Scope.Add("mango");
+    options.SaveTokens = true;
+});
 
 //--------------------------------------------------------------------------------
 var app = builder.Build();
@@ -26,7 +43,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication(); // authentication authorization'dan önce gelmeli her zaman.
 app.UseAuthorization();
 
 app.MapControllerRoute(

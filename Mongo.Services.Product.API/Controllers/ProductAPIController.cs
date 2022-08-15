@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Mango.Services.ProductAPI.Models.DTO;
 using Mango.Services.ProductAPI.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Mango.Services.ProductAPI.Controllers
 {
@@ -16,7 +17,7 @@ namespace Mango.Services.ProductAPI.Controllers
             _productRepository = productRepository;
             this._response = new ResponseDTO(); 
         }
-
+        [Authorize] // Sisteme giriş yapan kişiler bu istekleri yapabilecek artık.
         [HttpGet]
         public async Task<Object/* ResponseDTO*/> Get() // burda Task içine yazdığımız şey bizim dönüş tipimizi belirtiyor.
         {
@@ -35,6 +36,7 @@ namespace Mango.Services.ProductAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("{id}")] // Eğer burdaki Route kaldırırsak Request product için bu class'a geldiği zaman hangi
                         // [HttpGet] methoduna gideceğini bilemediği için error vericek.
                         // ikinci yani bu method'un id beklediğini [Route("{id}")] sayesinde anlıyor.
@@ -57,7 +59,8 @@ namespace Mango.Services.ProductAPI.Controllers
         }
 
         [HttpPost]
-       
+        [Authorize]
+
         public async Task<Object/* ResponseDTO*/> Post([FromBody] ProductDTO productDTO) // burda Task içine yazdığımız şey bizim dönüş tipimizi belirtiyor.
         {
             try
@@ -75,6 +78,7 @@ namespace Mango.Services.ProductAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize]
 
         public async Task<Object/* ResponseDTO*/> Put([FromBody] ProductDTO productDTO) // burda Task içine yazdığımız şey bizim dönüş tipimizi belirtiyor.
         {
@@ -93,6 +97,7 @@ namespace Mango.Services.ProductAPI.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")] // Silme işlemi sadece Admin için tanımlı
         [Route("{id}")]
 
         public async Task<Object/* ResponseDTO*/> Delete(int id) // burda Task içine yazdığımız şey bizim dönüş tipimizi belirtiyor.
