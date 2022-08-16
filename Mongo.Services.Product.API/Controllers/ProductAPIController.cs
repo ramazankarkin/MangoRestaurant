@@ -17,7 +17,6 @@ namespace Mango.Services.ProductAPI.Controllers
             _productRepository = productRepository;
             this._response = new ResponseDTO(); 
         }
-        [Authorize] // Sisteme giriş yapan kişiler bu istekleri yapabilecek artık.
         [HttpGet]
         public async Task<Object/* ResponseDTO*/> Get() // burda Task içine yazdığımız şey bizim dönüş tipimizi belirtiyor.
         {
@@ -36,7 +35,6 @@ namespace Mango.Services.ProductAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         [Route("{id}")] // Eğer burdaki Route kaldırırsak Request product için bu class'a geldiği zaman hangi
                         // [HttpGet] methoduna gideceğini bilemediği için error vericek.
                         // ikinci yani bu method'un id beklediğini [Route("{id}")] sayesinde anlıyor.
