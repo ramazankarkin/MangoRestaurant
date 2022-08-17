@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Mango.Services.ShoppingCartAPI.Models;
+using Mango.Services.ShoppingCartAPI.Models.DTO;
 
 namespace Mango.Services.ShoppingCartAPI
 {
@@ -8,10 +10,10 @@ namespace Mango.Services.ShoppingCartAPI
         {
             var mappingConfig = new MapperConfiguration(config =>
             {
-                //config.CreateMap<ProductDTO, Product>();// ProductDTO classındaki property isimleri ile Product classındaki property isimleri aynı olduğu sürece otomatik olarak
-               // config.CreateMap<Product, ProductDTO>();// map işlemi yapılacak eğer property isimleri farklı olsaydı bunu tek tek elle birer birer map'lememiz gerekecekti. 
-                                                        // Maplemek istediğimiz property isimleri aynı olduğu için tek tek yazmadık.
-
+                config.CreateMap<ProductDTO, Product>().ReverseMap();// ProductDTO classındaki property isimleri ile Product classındaki property isimleri aynı olduğu sürece otomatik olarak
+                config.CreateMap<CartHeaderDTO, CartHeader>().ReverseMap();// map işlemi yapılacak eğer property isimleri farklı olsaydı bunu tek tek elle birer birer map'lememiz gerekecekti. 
+                config.CreateMap<CartDetailsDTO, CartDetails>().ReverseMap();// Maplemek istediğimiz property isimleri aynı olduğu için tek tek yazmadık.
+                config.CreateMap<CartDTO, Cart>().ReverseMap();
             });
             return mappingConfig;
         }
