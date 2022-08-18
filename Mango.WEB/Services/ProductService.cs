@@ -1,5 +1,4 @@
-﻿using Mango.Services.ProductAPI;
-using Mango.WEB.Models;
+﻿using Mango.WEB.Models;
 using Mango.WEB.Services.IServices;
 
 namespace Mango.WEB.Services

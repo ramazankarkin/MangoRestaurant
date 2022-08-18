@@ -129,10 +129,10 @@ namespace Mango.Services.ShoppingCartAPI.Repository
                 int totalCountOfCartItems = _db.CartDetails.Where(u => u.CartHeaderId == cartDetails.CartHeaderId).Count();
                 _db.CartDetails.Remove(cartDetails); // database'den siliyoruz bulduğumuz objeyi.
                 if (totalCountOfCartItems == 1)//  totalCountOfCartItems = 1 olması bize şunu gösterir. cardHeaderId sadece sildiğimiz
-                                               //  cartDetail objemizde varmış diğer cartDetail objelerinde aynı cardHeaderId 
+                                               //  cartDetail objemizde varmış diğer cartDetail objelerinde aynı cardHeaderId yokmuş.
                 {
                     var cartHeaderToRemove = await _db.CartHeaders.FirstOrDefaultAsync(u => u.CardHeaderId == cartDetails.CartHeaderId);
-                    _db.CartHeaders.Remove(cartHeaderToRemove);
+                    _db.CartHeaders.Remove(cartHeaderToRemove); // burda sadece sildiğimiz cartDetails de bulunan cartHeaders'ı database'den sildik. 
                 }
                 await _db.SaveChangesAsync();
                 return true;

@@ -1,4 +1,5 @@
-﻿using Mango.WEB.Models;
+﻿using Mango.WEB;
+using Mango.WEB.Models;
 using Mango.WEB.Services.IServices;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
@@ -45,13 +46,13 @@ namespace Mango.WEB.Services
                 HttpResponseMessage apiResponse = null;
                 switch (apiRequest.APIType)
                 {
-                    case Mango.Services.ProductAPI.SD.APIType.POST:
+                    case Mango.WEB.SD.APIType.POST:
                         httpRequestMessage.Method = HttpMethod.Post;
                         break;
-                    case Mango.Services.ProductAPI.SD.APIType.PUT:
+                    case Mango.WEB.SD.APIType.PUT:
                         httpRequestMessage.Method = HttpMethod.Put;
                         break;
-                    case Mango.Services.ProductAPI.SD.APIType.DELETE:
+                    case Mango.WEB.SD.APIType.DELETE:
                         httpRequestMessage.Method = HttpMethod.Delete;
                         break;
                     default:

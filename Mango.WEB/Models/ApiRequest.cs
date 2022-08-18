@@ -1,4 +1,4 @@
-﻿using static Mango.Services.ProductAPI.SD;
+﻿using static Mango.WEB.SD;
 
 namespace Mango.WEB.Models
 {

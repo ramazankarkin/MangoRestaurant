@@ -1,6 +1,7 @@
-using Mango.Services.ProductAPI;
+using Mango.WEB;
 using Mango.WEB.Services;
 using Mango.WEB.Services.IServices;
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 //--------------------------------------------------------------------------------
 builder.Services.AddHttpClient<IProductService, ProductService>();
+builder.Services.AddHttpClient<ICartService, CartService>();
+
 SD.ProductAPIBase = builder.Configuration["ServiceURLs:ProductAPI"];
+SD.ShoppingCartAPIBase = builder.Configuration["ServiceURLs:ShoppingCartAPI"];
+
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICartService, CartService>();
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = "Cookies";
@@ -20,7 +27,11 @@ builder.Services.AddAuthentication(options =>
     options.Authority = builder.Configuration["ServiceURLs:IdentityAPI"];
     options.GetClaimsFromUserInfoEndpoint = true;
     options.ClientId = "mango";
-    options.ClientSecret = "secret"; // normal þartlarda random guid olmasý lazým
+    options.ClientSecret = "secret"; // normal þartlarda random guid olmasý lazým,
+    options.ClaimActions.MapJsonKey("role","role","role");
+    options.ClaimActions.MapJsonKey("sub", "sub", "sub");
+    options.ClaimActions.MapJsonKey("role", "role", "role");
+
     options.ResponseType = "code";
     options.TokenValidationParameters.NameClaimType = "name";
     options.TokenValidationParameters.RoleClaimType = "role";
