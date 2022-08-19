@@ -21,11 +21,28 @@ namespace Mango.WEB.Controllers
         {
             return View(await LoadCartDTOBasedOnLoggedInUser());
         }
+
+        public async Task<IActionResult> Remove(int cartDetailsId)
+        {
+            var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var response = await _cartService.RemoveFromCartAsync<ResponseDTO>(cartDetailsId, accessToken);
+            // belirli kullanıcı için alışveriş kartını döndük üstteki statementta  
+
+            CartDTO cartDTO = new();
+            if (response != null && response.IsSUCCESS)
+            {
+                return RedirectToAction(nameof(CartIndex));
+            }
+            return View();
+        }
+
         private async Task<CartDTO> LoadCartDTOBasedOnLoggedInUser() 
         {
             var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
             var accessToken = await HttpContext.GetTokenAsync("access_token");
             var response = await _cartService.GetCartByUserIdAsync<ResponseDTO>(userId, accessToken);
+            // belirli kullanıcı için alışveriş kartını döndük üstteki statementta  
 
             CartDTO cartDTO = new();
             if(response != null && response.IsSUCCESS)

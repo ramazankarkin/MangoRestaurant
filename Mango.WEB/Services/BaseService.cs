@@ -1,5 +1,4 @@
-﻿using Mango.WEB;
-using Mango.WEB.Models;
+﻿using Mango.WEB.Models;
 using Mango.WEB.Services.IServices;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
@@ -11,12 +10,12 @@ namespace Mango.WEB.Services
     {
         public ResponseDTO responseModel { get; set; }
 
-        public IHttpClientFactory httpClient { get; set; } // Request yaptığımızda kullanıcaz.
+        public IHttpClientFactory _httpClient { get; set; } // Request yaptığımızda kullanıcaz.
 
         public BaseService(IHttpClientFactory httpClient)
         {
-            this.responseModel = new ResponseDTO();
-            this.httpClient = httpClient;
+            responseModel = new ResponseDTO();
+            _httpClient = httpClient;
         }
 
 
@@ -29,7 +28,7 @@ namespace Mango.WEB.Services
         {
             try
             {
-                var client = httpClient.CreateClient("MangoAPI");
+                var client = _httpClient.CreateClient("MangoAPI");
                 HttpRequestMessage httpRequestMessage = new HttpRequestMessage();
                 httpRequestMessage.Headers.Add("Accept","application/json");
                 httpRequestMessage.RequestUri = new Uri(apiRequest.Url);
@@ -46,13 +45,13 @@ namespace Mango.WEB.Services
                 HttpResponseMessage apiResponse = null;
                 switch (apiRequest.APIType)
                 {
-                    case Mango.WEB.SD.APIType.POST:
+                    case SD.APIType.POST:
                         httpRequestMessage.Method = HttpMethod.Post;
                         break;
-                    case Mango.WEB.SD.APIType.PUT:
+                    case SD.APIType.PUT:
                         httpRequestMessage.Method = HttpMethod.Put;
                         break;
-                    case Mango.WEB.SD.APIType.DELETE:
+                    case SD.APIType.DELETE:
                         httpRequestMessage.Method = HttpMethod.Delete;
                         break;
                     default:

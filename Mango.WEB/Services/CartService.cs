@@ -13,7 +13,7 @@ namespace Mango.WEB.Services
         }
         public async Task<T> AddToCartAsync<T>(CartDTO cartDTO, string token = null)
         {
-            return await this.SendAsync<T>(new ApiRequest() //Send an HTTP request as an asynchronous operation.
+            return await SendAsync<T>(new ApiRequest() //Send an HTTP request as an asynchronous operation.
                                                             // Burdaki T generic type aslında ResponseDTO'dur.
             {
                 APIType = SD.APIType.POST,
@@ -25,7 +25,7 @@ namespace Mango.WEB.Services
 
         public async Task<T> GetCartByUserIdAsync<T>(string userId, string token = null)
         {
-            return await this.SendAsync<T>(new ApiRequest()
+            return await SendAsync<T>(new ApiRequest()
 
             {
                 APIType = SD.APIType.GET,
@@ -36,7 +36,7 @@ namespace Mango.WEB.Services
 
         public async Task<T> RemoveFromCartAsync<T>(int cartDetailsId, string token = null)
         {
-            return await this.SendAsync<T>(new ApiRequest() //Send an HTTP request as an asynchronous operation.
+            return await SendAsync<T>(new ApiRequest() //Send an HTTP request as an asynchronous operation.
                                                             // Burdaki T generic type aslında ResponseDTO'dur.
             {
                 APIType = SD.APIType.POST,
@@ -48,8 +48,8 @@ namespace Mango.WEB.Services
 
         public async Task<T> UpdateToCartAsync<T>(CartDTO cartDTO, string token = null)
         {
-            return await this.SendAsync<T>(new ApiRequest() //Send an HTTP request as an asynchronous operation.
-                                                            // Burdaki T generic type aslında ResponseDTO'dur.
+            return await SendAsync<T>(new ApiRequest() //Send an HTTP request as an asynchronous operation.
+                                                       // Burdaki T generic type aslında ResponseDTO'dur.
             {
                 APIType = SD.APIType.POST,
                 Data = cartDTO,
