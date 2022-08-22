@@ -21,6 +21,37 @@ namespace Mango.WEB.Controllers
         {
             return View(await LoadCartDTOBasedOnLoggedInUser());
         }
+        [HttpPost]
+        [ActionName("ApplyCoupon")] // Aynı isimde olduğu için eklemesekte olurdu.
+        public async Task<IActionResult> ApplyCoupon(CartDTO cartDTO)
+        {
+            var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var response = await _cartService.ApplyCoupon<ResponseDTO>(cartDTO, accessToken);
+
+            if (response != null && response.IsSUCCESS)
+            {
+                return RedirectToAction(nameof(CartIndex));
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("RemoveCoupon")] // Aynı isimde olduğu için eklemesekte olurdu.
+        public async Task<IActionResult> RemoveCoupon(CartDTO cartDTO)
+        {
+            var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var response = await _cartService.RemoveCoupon<ResponseDTO>(cartDTO.CartHeader.UserId, accessToken);
+
+            if (response != null && response.IsSUCCESS)
+            {
+                return RedirectToAction(nameof(CartIndex));
+            }
+            return View();
+        }
+
+
 
         public async Task<IActionResult> Remove(int cartDetailsId)
         {
@@ -29,7 +60,6 @@ namespace Mango.WEB.Controllers
             var response = await _cartService.RemoveFromCartAsync<ResponseDTO>(cartDetailsId, accessToken);
             // belirli kullanıcı için alışveriş kartını döndük üstteki statementta  
 
-            CartDTO cartDTO = new();
             if (response != null && response.IsSUCCESS)
             {
                 return RedirectToAction(nameof(CartIndex));
@@ -57,7 +87,7 @@ namespace Mango.WEB.Controllers
                 }
                 
             }
-            return cartDTO;
+             return cartDTO;
         }
     }
 }

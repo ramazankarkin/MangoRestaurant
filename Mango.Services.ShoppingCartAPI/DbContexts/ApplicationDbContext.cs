@@ -15,7 +15,7 @@ namespace Mango.Services.ShoppingCartAPI.DbContexts
 
         }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; } // Database'de bu tabloların oluşturmasını sağladık.
         public DbSet<CartHeader> CartHeaders { get; set; }
         public DbSet<CartDetails> CartDetails { get; set; }
 

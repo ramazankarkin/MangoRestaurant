@@ -4,7 +4,7 @@ namespace Mango.Services.ProductAPI.Models
 {
     public class Product
     {
-        [Key]// Primary Key, Biz key annotation'ı eklemek bile Entity Framework productId yazdığımız için otomatik Primary key yapıcaktı.
+        [Key]// Primary Key, Biz key annotation'ı eklemesek bile Entity Framework productId yazdığımız için otomatik Primary key yapıcaktı.
         public int ProductId { get; set; }
 
         [Required]

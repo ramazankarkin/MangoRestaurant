@@ -17,7 +17,15 @@ namespace Mango.Services.ShoppingCartAPI.Repository
             _mapper = mapper;
         }
 
-
+        public async Task<bool> ApplyCoupon(string userId, string couponCode)
+        {
+            var cartFromDb =await _db.CartHeaders.FirstOrDefaultAsync(u => u.UserId == userId);
+            cartFromDb.CouponCode = couponCode;
+            _db.CartHeaders.Update(cartFromDb); // DbContext'i kullanarak CartHeaders update edicez.
+            await _db.SaveChangesAsync();
+            return true;
+            
+        }
 
         public async Task<bool> ClearCart(string userId)
         {
@@ -116,6 +124,15 @@ namespace Mango.Services.ShoppingCartAPI.Repository
             // Include(u => u.Product) bu include ile beraber CartDetails içindeki Product bilgisini de çekiyoruz.
             // cart objemiz artık bu product bilgilerine ulaşabilir.
             return _mapper.Map<CartDTO>(cart); // cart objesini cartDTO objesine convert ediyoruz.
+        }
+
+        public async Task<bool> RemoveCoupon(string userId)
+        {
+            var cartFromDb = await _db.CartHeaders.FirstOrDefaultAsync(u => u.UserId == userId);
+            cartFromDb.CouponCode = "";
+            _db.CartHeaders.Update(cartFromDb); // DbContext'i kullanarak CartHeaders update edicez.
+            await _db.SaveChangesAsync();
+            return true;
         }
 
         public async Task<bool> RemoveFromCart(int cartDetailsId)
