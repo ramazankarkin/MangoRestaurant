@@ -11,11 +11,13 @@ namespace Mango.WEB.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
+        private readonly ICouponService _couponService;
 
-        public CartController(IProductService productService, ICartService cartService)
+        public CartController(IProductService productService, ICartService cartService, ICouponService couponService)
         {
             _productService = productService;
             _cartService = cartService;
+            _couponService = couponService;
         }
         public async Task<IActionResult> CartIndex()
         {
@@ -34,6 +36,12 @@ namespace Mango.WEB.Controllers
                 return RedirectToAction(nameof(CartIndex));
             }
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Checkout()
+        {
+            return View(await LoadCartDTOBasedOnLoggedInUser());
         }
 
         [HttpPost]
@@ -81,10 +89,20 @@ namespace Mango.WEB.Controllers
             }
             if(cartDTO.CartHeader != null)
             {
+                if (!string.IsNullOrEmpty(cartDTO.CartHeader.CouponCode))
+                {
+                    var coupon = await _couponService.GetCoupon<ResponseDTO>(cartDTO.CartHeader.CouponCode, accessToken);
+                    if (coupon != null && coupon.IsSUCCESS)
+                    {
+                        var couponObj = JsonConvert.DeserializeObject<CouponDTO>(Convert.ToString(coupon.Result));
+                        cartDTO.CartHeader.DiscountTotal = couponObj.DiscountAmount;
+                    }
+                }
                 foreach (var detail in cartDTO.CartDetails)
                 {
                     cartDTO.CartHeader.OrderTotal += (detail.Product.Price * detail.Count);
                 }
+                cartDTO.CartHeader.OrderTotal -= cartDTO.CartHeader.DiscountTotal;
                 
             }
              return cartDTO;
