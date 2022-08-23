@@ -23,6 +23,8 @@ namespace Mango.WEB.Controllers
             if (response != null && response.IsSUCCESS)
             {
                 list = JsonConvert.DeserializeObject<List<ProductDTO>>(Convert.ToString(response.Result));
+                // response.Result' stringe çevirdik jsonConvert string'i ProductDTO listesine dönüştürüyor.
+                // Daha sonra onu list'e atıyoruz.
             }
             return View(list);
         }

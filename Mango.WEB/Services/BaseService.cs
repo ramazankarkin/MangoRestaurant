@@ -19,11 +19,6 @@ namespace Mango.WEB.Services
         }
 
 
-        public void Dispose()
-        {
-            GC.SuppressFinalize(true); // Ne için kullanıldığına bak tekrardan!
-        }
-
         public async Task<T> SendAsync<T>(ApiRequest apiRequest)
         {
             try
@@ -60,8 +55,8 @@ namespace Mango.WEB.Services
                 }
                 apiResponse = await client.SendAsync(httpRequestMessage);
                 var apiContent = await apiResponse.Content.ReadAsStringAsync();
-                var apiResponseDto = JsonConvert.DeserializeObject<T>(apiContent);
-                return apiResponseDto;
+                var apiResponseDto = JsonConvert.DeserializeObject<T>(apiContent); // hangi tipte obje gelirse o tipe dönüştürüyoruz.
+                return apiResponseDto; // genelde T olarak ResponseDTO göndereceğimiz için dönüş tipimiz ResponseDTO olacak.
             }
             catch (Exception ex)
             {
@@ -76,10 +71,16 @@ namespace Mango.WEB.Services
                     IsSUCCESS = false
                 };
 
-                var res = JsonConvert.SerializeObject(dto);
-                var apiResponseDto = JsonConvert.DeserializeObject<T>(res);
+                var res = JsonConvert.SerializeObject(dto); // objeyi json'a convert ettik.
+                var apiResponseDto = JsonConvert.DeserializeObject<T>(res); //json'ı generic tipe convert ettik.
                 return apiResponseDto;
             }
+        }
+
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(true); // Ne için kullanıldığına bak tekrardan!
         }
     }
 }

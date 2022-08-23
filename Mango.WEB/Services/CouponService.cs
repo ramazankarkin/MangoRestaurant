@@ -3,7 +3,7 @@ using Mango.WEB.Services.IServices;
 
 namespace Mango.WEB.Services
 {
-    public class CouponService :BaseService ICouponService
+    public class CouponService :BaseService,ICouponService
     {
         private readonly IHttpClientFactory _clientFactory;
 

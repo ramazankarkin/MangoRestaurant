@@ -22,11 +22,11 @@ namespace Mango.Services.ProductAPI.Repository
             Product product = _mapper.Map<ProductDTO, Product>(productDTO); // ProductDTO yu product'a dönüştürüp product'a atıyoruz.
             if(product.ProductId > 0) // update veya create olduğunu anlamak için koyduk.
             {
-                _db.Products.Update(product);
+                _db.Products.Update(product); // Burdaki Update methodu Entity Framework'den geliyor biz yazmadık bu methodu.
             }
             else
             {
-                _db.Products.Add(product);
+                _db.Products.Add(product); // Burdaki Add methodu Entity Framework'den geliyor biz yazmadık bu methodu.
             }
             await _db.SaveChangesAsync();
             return _mapper.Map<Product, ProductDTO > (product); // Tekrar Product'u ProductDTO'ya dönüştürüyoruz.
@@ -42,9 +42,9 @@ namespace Mango.Services.ProductAPI.Repository
                     return false;
                 }
                 _db.Products.Remove(product);
-                await _db.SaveChangesAsync();
-                return true;
-            }
+                await _db.SaveChangesAsync(); // Database'de değişiklik yaptığımız için ekledik. 
+                return true;                  // Okuma işlemi yaptığımızda değişiklik yapmadığımız için 
+            }                                 // SaveChangesAsync() yok orda.
             catch (Exception)
             {
 
@@ -61,9 +61,9 @@ namespace Mango.Services.ProductAPI.Repository
 
         public async Task<IEnumerable<ProductDTO>> GetProducts()
         {
-            IEnumerable<Product> productList = await _db.Products.ToListAsync(); // Database'den tüm productları liste şeklinde alıyoruz.
+            IEnumerable<Product> productList = await _db.Products.ToListAsync(); // Database'deki Products table'ından tüm productları liste şeklinde alıyoruz.
 
-            return _mapper.Map <List<ProductDTO >>(productList); // Product to PrdoctDTO dönüştürüp return ediyoruz.
+            return _mapper.Map <List<ProductDTO >>(productList); // Product Listesini tutan productList'i  PrdoctDTO'ya dönüştürüp return ediyoruz.
         }
     }
 }

@@ -11,14 +11,17 @@ namespace Mango.Services.ProductAPI.DbContexts
 
         }
 
-        public DbSet<Product> Products { get; set; } // we will create table name of Products
+        public DbSet<Product> Products { get; set; } // Databasedeki tablonun adı Products olucak.
+                                                     // add-migration [birde anlamlı bir isim buraya parantez olmadan] ve update-database dersek veritabanında 
+                                                     // Products tablosu ve Product class'ınki property'lerde
+                                                     // column olucak.
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Product>().HasData(new Product
-            {
+            modelBuilder.Entity<Product>().HasData(new Product // bu methodla Products tablomuza yeni row(ürün) ekliyoruz. Bu ürünleri sonradan eklediğimiz için
+            {                                                  // tekrar add-migration ve updata-database yapmamız gerekiyor.
                 ProductId = 1,
                 Name = "Samosa",
                 Price = 15,

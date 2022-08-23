@@ -22,8 +22,8 @@ namespace Mango.Services.ProductAPI.Controllers
         {
             try
             {
-                IEnumerable<ProductDTO> productDtos = await _productRepository.GetProducts();
-                _response.Result = productDtos;
+                IEnumerable<ProductDTO> productDtos = await _productRepository.GetProducts(); // Burda ProductRepository Class'ındaki GetProducts methodu
+                _response.Result = productDtos;                                               // databasedeki Products tablosundaki tüm product'ları dönüyor
             }
             catch (Exception ex)
             {
