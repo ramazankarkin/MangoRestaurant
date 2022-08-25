@@ -35,6 +35,18 @@ namespace Mango.WEB.Services
             });
         }
 
+        public async Task<T> Checkout<T>(CartHeaderDTO cartHeader, string token = null)
+        {
+            return await SendAsync<T>(new ApiRequest() //Send an HTTP request as an asynchronous operation.
+                                                       // Burdaki T generic type aslında ResponseDTO'dur.
+            {
+                APIType = SD.APIType.POST,
+                Data = cartHeader,
+                Url = SD.ShoppingCartAPIBase + "/api/cart/Checkout",
+                AccessToken = token
+            });
+        }
+
         public async Task<T> GetCartByUserIdAsync<T>(string userId, string token = null)
         {
             return await SendAsync<T>(new ApiRequest()

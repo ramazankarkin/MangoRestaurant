@@ -38,10 +38,32 @@ namespace Mango.WEB.Controllers
             return View();
         }
 
-        [HttpGet]
+        //[HttpGet]
         public async Task<IActionResult> Checkout()
         {
             return View(await LoadCartDTOBasedOnLoggedInUser());
+        }
+
+        [HttpPost/*("Checkout")*/]
+        public async Task<IActionResult> Checkout(CartDTO cartDTO)
+        {
+            try
+            {
+                var accessToken = await HttpContext.GetTokenAsync("access_token");
+                var response = await _cartService.Checkout<ResponseDTO>(cartDTO.CartHeader, accessToken);
+                return RedirectToAction(nameof(Confirmation));
+
+            }
+            catch (Exception)
+            {
+
+                return View(cartDTO);
+            }
+        }
+        //[HttpGet]
+        public async Task<IActionResult> Confirmation()
+        {
+            return View();
         }
 
         [HttpPost]
